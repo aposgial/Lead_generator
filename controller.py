@@ -1,10 +1,15 @@
 from model import Model
 from view import View
+from APIs.google_APIs_controller import Google_APIs_Controller
 
-class controller():
+
+class Controller():
     def __init__(self, model:Model, view:View) -> None:
         self.model = model
         self.view = view
+        self.google_APIs_controller = Google_APIs_Controller()
 
+    def search(self):
+        self.google_APIs_controller.places_search(query="OK..")
     def run(self):
         self.view.mainloop()
