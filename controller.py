@@ -10,6 +10,8 @@ class Controller():
         self.google_APIs_controller = Google_APIs_Controller()
 
     def search(self):
-        self.google_APIs_controller.places_search(query="OK..")
+        places = self.google_APIs_controller.places_search(query="OK..")
+        print(places)
+        
     def run(self):
         self.view.mainloop()
