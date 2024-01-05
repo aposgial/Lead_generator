@@ -12,7 +12,7 @@ class Model():
 
     def create_table_searches(self):
         query = '''CREATE TABLE IF NOT EXISTS searches
-                    (result_id INTEGER PRIMARY KEY autoincrement,
+                    (lead_id INTEGER PRIMARY KEY autoincrement,
                     location_searched TEXT,
                     type_searched TEXT,
                     result_sum INTEGER,
@@ -25,8 +25,8 @@ class Model():
 
     def create_table_places(self):
         query = '''CREATE TABLE IF NOT EXISTS places
-                    (lead_id INTEGER PRIMARY KEY autoincrement,
-                    result_id INTEGER,
+                    (result_id INTEGER PRIMARY KEY autoincrement,
+                    lead_id INTEGER,
                     place_id TEXT,
                     name TEXT,
                     address TEXT,
@@ -34,7 +34,7 @@ class Model():
                     maps_url TEXT,
                     rating REAL,
                     total_ratings INTEGER,
-                    FOREIGN KEY (result_id) REFERENCES searches(result_id)
+                    FOREIGN KEY (lead_id) REFERENCES searches(lead_id)
                 );
                 '''
         with SQLite() as cursor:
@@ -87,9 +87,6 @@ class Model():
             cursor.execute(query)
 
 
-
-
-
     def insert(self, search_data):
         query = '''INSERT INTO searches
                     (location_searched, 
@@ -101,11 +98,11 @@ class Model():
                     '''
         with SQLite() as cursor:
             cursor.execute(query, (
-                                    search_data['location_searched'],
-                                    search_data['type_searched'],
-                                    search_data['result_sum'],
-                                    search_data['date_searched'],
-                                    search_data['suggestions']
+                                search_data['location_searched'],
+                                search_data['type_searched'],
+                                search_data['result_sum'],
+                                search_data['date_searched'],
+                                search_data['suggestions']
                                 ))
             
 
