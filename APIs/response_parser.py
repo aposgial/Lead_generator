@@ -19,6 +19,29 @@ def _reviews_refactor(reviews:list) -> list:
         )
     return rev
 
+def _open_hours_refactor(open_hours:list[str]) -> list:
+    schedule = []
+
+    for entry in open_hours:
+        day, time_range = entry.split(": ")
+        
+        if "Closed" in time_range:
+            status = "Closed"
+            opening_time = None
+            closing_time = None
+        else:
+            status = "Open"
+            temp = str(time_range.encode()).replace("b'", "").replace("'", "")
+            opening_time, closing_time = temp.split(" \\xce\\xb2\\xe2\\x82\\xac\\xe2\\x80\\x9c ")
+            
+        schedule.append({
+            "day": day,
+            "status": status,
+            "opening_time": opening_time,
+            "closing_time": closing_time
+        })
+    return schedule
+
 def place_refactor(result:dict) -> dict:
     refactored = {}
     if "place_id" in result.keys():
@@ -51,6 +74,8 @@ def place_refactor(result:dict) -> dict:
     if "opening_hours" in result.keys():
         schedule:dict = result["opening_hours"]
         if "weekday_text" in schedule.keys():
-            refactored["open_hours"] = schedule["weekday_text"]
+            refactored["open_hours"] = _open_hours_refactor(schedule["weekday_text"])
+            #print(_open_hours_refactor(schedule["weekday_text"]))
+            #pass
 
     return refactored

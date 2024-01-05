@@ -1,4 +1,4 @@
-from model import Model
+from Model.model import Model
 from view import View
 from APIs.google_APIs_controller import Google_APIs_Controller
 
@@ -14,7 +14,7 @@ class Controller():
     def search(self):
         places = self.google_APIs_controller.places_search(query="OK..")
         google_api = Google_APIs()
-        google_api.write_dict_to_json_file(places[0])
+        google_api.write_dict_to_json_file(places)
         
     def run(self):
         self.view.mainloop()

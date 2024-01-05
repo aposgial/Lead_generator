@@ -12,7 +12,7 @@ class Google_APIs_Controller():
             places_id = parse_places_id(response["results"])
             
             places = []
-            for place_id in places_id:
+            for place_id in places_id[:1]:
                 place:dict = self.con.get_place_details()["result"] #TODO pass the place_id into the get_place_details
                 
                 if "website" in place.keys():
