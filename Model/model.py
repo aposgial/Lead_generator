@@ -87,24 +87,76 @@ class Model():
             cursor.execute(query)
 
 
-    def insert(self, search_data):
+    def insert_searches(self, search_data:dict):
         query = '''INSERT INTO searches
                     (location_searched, 
-                        type_searched, 
-                        result_sum, 
-                        date_searched, 
-                        suggestions
-                    )VALUES (?, ?, ?, ?, ?);
-                    '''
+                    type_searched, 
+                    result_sum, 
+                    date_searched, 
+                    suggestions)
+                    VALUES (?, ?, ?, ?, ?);
+                '''
         with SQLite() as cursor:
-            cursor.execute(query, (
-                                search_data['location_searched'],
-                                search_data['type_searched'],
-                                search_data['result_sum'],
-                                search_data['date_searched'],
-                                search_data['suggestions']
-                                ))
+            cursor.execute(query, tuple(search_data.values()))
             
+    def insert_places(self, place_data:dict):
+        query = '''INSERT INTO places 
+                    (lead_id,
+                    place_id,
+                    name,
+                    address,
+                    phone,
+                    maps_url,
+                    rating,
+                    total_ratings)
+                    VALUES (?, ?, ?, ?, ?, ?, ?, ?);
+                '''
+        with SQLite() as cursor:
+            cursor.execute(query, tuple(place_data.values()))
+
+    def insert_types(self, type_date:dict):
+        query = '''INSERT INTO types 
+                    (result_id,
+                    type)
+                    VALUES (?, ?);
+                '''
+        with SQLite() as cursor:
+            cursor.execute(query, tuple(type_date.values()))
+    
+    def insert_operating_hours(self, operating_hours_data:dict):
+        query = '''INSERT INTO operating_hours 
+                    (result_id,
+                    day,
+                    status,
+                    opening_time,
+                    closing_time)
+                    VALUES (?, ?, ?, ?, ?);
+                '''
+        with SQLite() as cursor:
+            cursor.execute(query, tuple(operating_hours_data.values()))
+
+    def insert_reviews(self, review_data:dict):
+        query = '''INSERT INTO reviews 
+                    (result_id,
+                    author_name,
+                    rate,
+                    language,
+                    text)
+                    VALUES (?, ?, ?, ?, ?);
+                '''
+        with SQLite() as cursor:
+            cursor.execute(query, tuple(review_data.values()))
+    
+    def insert_suggestions(self, suggestion_data:dict):
+        query = '''INSERT INTO suggestions 
+                    (result_id,
+                    suggestion)
+                    VALUES (?, ?);
+                '''
+        with SQLite() as cursor:
+            cursor.execute(query, tuple(suggestion_data.values()))
+
+    
 
 
 from datetime import date            
