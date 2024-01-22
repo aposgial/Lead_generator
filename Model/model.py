@@ -157,6 +157,48 @@ class Model():
             cursor.execute(query, tuple(suggestion_data.values()))
 
     
+    def select_searches(self):
+        query = '''SELECT * FROM searches'''
+
+        with SQLite() as cursor:
+            data = cursor.execute(query)
+            return data.fetchall()
+
+    def select_places(self, lead_id):
+        query = '''SELECT * FROM places WHERE lead_id=?'''
+        
+        with SQLite() as cursor:
+            data = cursor.execute(query, (lead_id,))
+            return data.fetchall()
+        
+    def select_types(self, result_id):
+        query = '''SELECT * FROM types WHERE result_id=?'''
+        
+        with SQLite() as cursor:
+            data = cursor.execute(query, (result_id,))
+            return data.fetchall()
+        
+    def select_operating_hours(self, result_id):
+        query = '''SELECT * FROM operating_hours WHERE result_id=?'''
+        
+        with SQLite() as cursor:
+            data = cursor.execute(query, (result_id,))
+            return data.fetchall()
+
+    def select_reviews(self, result_id):
+        query = '''SELECT * FROM reviews WHERE result_id=?'''
+        
+        with SQLite() as cursor:
+            data = cursor.execute(query, (result_id,))
+            return data.fetchall()
+        
+    def select_suggestions(self, result_id):
+        query = '''SELECT * FROM suggestions WHERE result_id=?'''
+        
+        with SQLite() as cursor:
+            data = cursor.execute(query, (result_id,))
+            return data.fetchall()
+        
 
 
 from datetime import date            
