@@ -1,4 +1,4 @@
-from db_context_manager import SQLite
+from .db_context_manager import SQLite
 
 class Model():
     def __init__(self) -> None:

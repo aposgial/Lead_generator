@@ -3,9 +3,8 @@ from view import View
 from controller import Controller
 
 def main():
-    model = Model()
-    view = View()
-    App = Controller(model, view)
+    App = Controller()
+    
     App.search()
     App.run()
 
