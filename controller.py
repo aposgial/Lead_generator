@@ -9,7 +9,6 @@ class Controller():
     def __init__(self) -> None:
         self.model = Model()
         self.view = View(self)
-        #self.view.controller = self
         self.google_APIs_controller = Google_APIs_Controller()
 
     def search(self):
@@ -18,8 +17,9 @@ class Controller():
         google_api.write_dict_to_json_file(places)
 
 
-    def get_searches_values(self):
+    def get_searches_info(self):
         return self.model.select_searches()
+    
         
     def run(self):
         self.view.mainloop()

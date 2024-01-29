@@ -10,7 +10,7 @@ class Model():
         self.create_table_suggestions()
 
 
-    def create_table_searches(self):
+    def create_table_searches(self) -> None:
         query = '''CREATE TABLE IF NOT EXISTS searches
                     (lead_id INTEGER PRIMARY KEY autoincrement,
                     location_searched TEXT,
@@ -23,7 +23,7 @@ class Model():
         with SQLite() as cursor:
             cursor.execute(query)
 
-    def create_table_places(self):
+    def create_table_places(self) -> None:
         query = '''CREATE TABLE IF NOT EXISTS places
                     (result_id INTEGER PRIMARY KEY autoincrement,
                     lead_id INTEGER,
@@ -40,7 +40,7 @@ class Model():
         with SQLite() as cursor:
             cursor.execute(query)
 
-    def create_table_types(self):
+    def create_table_types(self) -> None:
         query = '''CREATE TABLE IF NOT EXISTS types
                     (result_id INTEGER,
                     type TEXT,
@@ -50,7 +50,7 @@ class Model():
         with SQLite() as cursor:
             cursor.execute(query)
 
-    def create_table_operating_hours(self):
+    def create_table_operating_hours(self) -> None:
         query = '''CREATE TABLE IF NOT EXISTS operating_hours
                     (result_id INTEGER,
                     day TEXT,
@@ -63,7 +63,7 @@ class Model():
         with SQLite() as cursor:
             cursor.execute(query)
 
-    def create_table_reviews(self):
+    def create_table_reviews(self) -> None:
         query = '''CREATE TABLE IF NOT EXISTS reviews
                     (result_id INTEGER,
                     author_name TEXT,
@@ -76,7 +76,7 @@ class Model():
         with SQLite() as cursor:
             cursor.execute(query)
 
-    def create_table_suggestions(self):
+    def create_table_suggestions(self) -> None:
         query = '''CREATE TABLE IF NOT EXISTS suggestions
                     (result_id INTEGER,
                     suggestion TEXT,
@@ -87,7 +87,7 @@ class Model():
             cursor.execute(query)
 
 
-    def insert_searches(self, search_data:dict):
+    def insert_searches(self, search_data:dict) -> None:
         query = '''INSERT INTO searches
                     (location_searched, 
                     type_searched, 
@@ -99,7 +99,7 @@ class Model():
         with SQLite() as cursor:
             cursor.execute(query, tuple(search_data.values()))
             
-    def insert_places(self, place_data:dict):
+    def insert_places(self, place_data:dict) -> None:
         query = '''INSERT INTO places 
                     (lead_id,
                     place_id,
@@ -114,7 +114,7 @@ class Model():
         with SQLite() as cursor:
             cursor.execute(query, tuple(place_data.values()))
 
-    def insert_types(self, type_date:dict):
+    def insert_types(self, type_date:dict) -> None:
         query = '''INSERT INTO types 
                     (result_id,
                     type)
@@ -123,7 +123,7 @@ class Model():
         with SQLite() as cursor:
             cursor.execute(query, tuple(type_date.values()))
     
-    def insert_operating_hours(self, operating_hours_data:dict):
+    def insert_operating_hours(self, operating_hours_data:dict) -> None:
         query = '''INSERT INTO operating_hours 
                     (result_id,
                     day,
@@ -135,7 +135,7 @@ class Model():
         with SQLite() as cursor:
             cursor.execute(query, tuple(operating_hours_data.values()))
 
-    def insert_reviews(self, review_data:dict):
+    def insert_reviews(self, review_data:dict) -> None:
         query = '''INSERT INTO reviews 
                     (result_id,
                     author_name,
@@ -147,7 +147,7 @@ class Model():
         with SQLite() as cursor:
             cursor.execute(query, tuple(review_data.values()))
     
-    def insert_suggestions(self, suggestion_data:dict):
+    def insert_suggestions(self, suggestion_data:dict) -> None:
         query = '''INSERT INTO suggestions 
                     (result_id,
                     suggestion)
@@ -157,42 +157,42 @@ class Model():
             cursor.execute(query, tuple(suggestion_data.values()))
 
     
-    def select_searches(self):
+    def select_searches(self) -> list:
         query = '''SELECT * FROM searches'''
 
         with SQLite() as cursor:
             data = cursor.execute(query)
             return data.fetchall()
 
-    def select_places(self, lead_id):
+    def select_places(self, lead_id) -> list:
         query = '''SELECT * FROM places WHERE lead_id=?'''
         
         with SQLite() as cursor:
             data = cursor.execute(query, (lead_id,))
             return data.fetchall()
         
-    def select_types(self, result_id):
+    def select_types(self, result_id) -> list:
         query = '''SELECT * FROM types WHERE result_id=?'''
         
         with SQLite() as cursor:
             data = cursor.execute(query, (result_id,))
             return data.fetchall()
         
-    def select_operating_hours(self, result_id):
+    def select_operating_hours(self, result_id) -> list:
         query = '''SELECT * FROM operating_hours WHERE result_id=?'''
         
         with SQLite() as cursor:
             data = cursor.execute(query, (result_id,))
             return data.fetchall()
 
-    def select_reviews(self, result_id):
+    def select_reviews(self, result_id) -> list:
         query = '''SELECT * FROM reviews WHERE result_id=?'''
         
         with SQLite() as cursor:
             data = cursor.execute(query, (result_id,))
             return data.fetchall()
         
-    def select_suggestions(self, result_id):
+    def select_suggestions(self, result_id) -> list:
         query = '''SELECT * FROM suggestions WHERE result_id=?'''
         
         with SQLite() as cursor:
@@ -202,7 +202,7 @@ class Model():
 
 
 from datetime import date            
-m = Model()
+#m = Model()
 search_data = {
     'location_searched': 'volos',
     'type_searched': 'bar',

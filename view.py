@@ -44,4 +44,4 @@ class View(customtkinter.CTk):
         table_frame = self._add_frame(root=self, width=1078,height=678)
         table = self._add_table(root=table_frame, table_columns=main_table_columns , height=20)
 
-        self._add_table_values(root=table, values=self.controller.get_searches_values())
+        self._add_table_values(root=table, values=self.controller.get_searches_info())
