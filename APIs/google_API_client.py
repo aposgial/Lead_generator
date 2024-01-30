@@ -4,7 +4,7 @@ class Google_APIs():
     def __init__(self) -> None:
         self.places_file = "places_search.json"
         self.place_file = "place_details.json"
-        self.filename = "C:/Users/apost/OneDrive/Desktop/google API/place_details_temp.json"
+        self.filename = "place_details_temp.json"
 
 
     def read_json_file(self, file_name) -> dict:

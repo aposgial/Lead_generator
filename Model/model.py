@@ -17,7 +17,7 @@ class Model():
                     type_searched TEXT,
                     result_sum INTEGER,
                     date_searched DATE,
-                    suggestions BOOLEAN
+                    suggestions INTEGER
                 );
                 '''
         with SQLite() as cursor:

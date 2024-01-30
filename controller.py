@@ -1,3 +1,4 @@
+from datetime import date
 from Model.model import Model
 from view import View
 from APIs.google_APIs_controller import Google_APIs_Controller
@@ -11,10 +12,25 @@ class Controller():
         self.view = View(self)
         self.google_APIs_controller = Google_APIs_Controller()
 
+
+    def main_window_search_leads_button(self):
+        self.view.search_leads_window()
+
+    def search_leads_window_submit_button(self, query):
+        print(query.get())
+
     def search(self):
         places = self.google_APIs_controller.places_search(query="OK..")
         google_api = Google_APIs()
         google_api.write_dict_to_json_file(places)
+
+        #self.model.insert_searches({
+        #    "location_searched": "volos",
+        #    "type_searched": "bar",
+        #    "result_sum": 211,
+        #    "date_searched": str(date.today()),
+        #    "suggestions": 2
+        #})
 
 
     def get_searches_info(self):

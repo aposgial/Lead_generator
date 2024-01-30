@@ -14,7 +14,15 @@ class View(customtkinter.CTk):
         self.title(MAIN_WINDOW_TITLE)
         self.main_window()
 
+    def _add_level(self, window_size:str="650x700", window_title:str="" , frame_width:int=550, frame_height:int=600):
+        new_level = customtkinter.CTkToplevel()
+        new_level.geometry(window_size)
+        new_level.title(window_title)
 
+        new_level.rowconfigure(0 ,weight=1)
+        new_level.columnconfigure(0, weight=1)
+        return self._add_frame(root=new_level, width=frame_width, height=frame_height)
+    
     def _add_frame(self, root, width=1100, height=700):
         new_frame = customtkinter.CTkFrame(master=root, width=width, height=height, corner_radius=10)
         new_frame.grid(padx=10, pady=10)
@@ -45,3 +53,20 @@ class View(customtkinter.CTk):
         table = self._add_table(root=table_frame, table_columns=main_table_columns , height=20)
 
         self._add_table_values(root=table, values=self.controller.get_searches_info())
+
+        button_search_leads = customtkinter.CTkButton(master=self, text='Search Leads', command=self.controller.main_window_search_leads_button, width=120, height=32, border_width=0, corner_radius=8)
+        button_search_leads.grid(row=2, columnspan=2, padx=10)
+
+    def search_leads_window(self):
+        search_leads_window = self._add_level(window_size="350x200", window_title="Search leads", frame_height=150, frame_width=300)
+        search_leads_entry = customtkinter.CTkEntry(master=search_leads_window, width=280, height=30, border_width=2, corner_radius=10)
+        search_leads_entry.grid(row=1, column=1)
+
+        #entry_text = search_leads_entry.get()
+        #print(entry_text, "ok..")
+
+        button_search_leads_submit = customtkinter.CTkButton(master=search_leads_window, text='Search Leads', command=(
+                lambda query = search_leads_entry: self.controller.search_leads_window_submit_button(query)),
+                width=120, height=32, border_width=0, corner_radius=8)
+        button_search_leads_submit.grid(row=2, column=1, padx=10)
+
