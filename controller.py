@@ -20,6 +20,24 @@ class Controller():
     def get_searches_info(self):
         return self.model.select_searches()
     
-        
+    def get_places_info(self, lead_id):
+        places_info = []
+        places_data = self.model.select_places(lead_id)
+
+        for place in places_data:
+            result_id = place[1]
+            types_data = self.model.select_types(result_id)
+            operating_hours_data = self.model.select_operating_hours(result_id)
+            reviews_data = self.model.select_reviews(result_id)
+            suggestions_data = self.model.select_suggestions(result_id)
+
+            places_info.append(places_data +
+                               types_data +
+                               operating_hours_data +
+                               reviews_data +
+                               suggestions_data)
+        return places_info
+
+
     def run(self):
         self.view.mainloop()
