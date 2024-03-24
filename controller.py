@@ -16,13 +16,19 @@ class Controller():
     def main_window_search_leads_button(self):
         self.view.search_leads_window()
 
-    def search_leads_window_submit_button(self, query):
-        print(query.get())
+    def main_window_view_searched_lead_button(self, lead_id):
+        self.view.leads_window(lead_id)
 
-    def search(self):
+    def search_leads_window_submit_button(self, query):
+        temp = query.get()
+        print(temp)
+
         places = self.google_APIs_controller.places_search(query="OK..")
         google_api = Google_APIs()
         google_api.write_dict_to_json_file(places)
+
+    def search(self):
+        ...
 
         #self.model.insert_searches({
         #    "location_searched": "volos",

@@ -49,13 +49,23 @@ class View(customtkinter.CTk):
     
 
     def main_window(self):
-        table_frame = self._add_frame(root=self, width=1078,height=678)
-        table = self._add_table(root=table_frame, table_columns=main_table_columns , height=20)
+        def dinder():
+            search_values = self._get_focus_values_table(root=searched_leads_table)
+            self.controller.main_window_view_searched_lead_button(search_values[0])
 
-        self._add_table_values(root=table, values=self.controller.get_searches_info())
+        table_frame = self._add_frame(root=self, width=1078, height=678)
+        searched_leads_table = self._add_table(root=table_frame, table_columns=main_table_columns , height=20)
 
-        button_search_leads = customtkinter.CTkButton(master=self, text='Search Leads', command=self.controller.main_window_search_leads_button, width=120, height=32, border_width=0, corner_radius=8)
-        button_search_leads.grid(row=2, columnspan=2, padx=10)
+        self._add_table_values(root=searched_leads_table, values=self.controller.get_searches_info())
+
+        button_frame = self._add_frame(root=self, width=1078, height=40)
+        button_frame.grid(row=2, columnspan=2, padx=10)
+
+        button_search_leads = customtkinter.CTkButton(master=button_frame, text='Search Leads', command=self.controller.main_window_search_leads_button, width=120, height=32, border_width=0, corner_radius=8)
+        button_search_leads.grid(row=1, column=1, padx=10)
+
+        button_view_searched_lead = customtkinter.CTkButton(master=button_frame, text='View Lead', command=dinder, width=120, height=32, border_width=0, corner_radius=8)
+        button_view_searched_lead.grid(row=1, column=2, padx=10)
 
     def search_leads_window(self):
         search_leads_window = self._add_level(window_size="350x200", window_title="Search leads", frame_height=150, frame_width=300)
@@ -70,3 +80,18 @@ class View(customtkinter.CTk):
                 width=120, height=32, border_width=0, corner_radius=8)
         button_search_leads_submit.grid(row=2, column=1, padx=10)
 
+    def leads_window(self, lead_id):
+        print(lead_id)
+        leads_level = self._add_level(window_size="1200x750", window_title="leads", frame_width=1078, frame_height=678)
+        leads_table = self._add_table(root=leads_level, table_columns=main_table_columns , height=20)
+
+        self._add_table_values(root=leads_table, values=self.controller.get_places_info(lead_id))
+
+        #button_frame = self._add_frame(root=self, width=1078, height=40)
+        #button_frame.grid(row=2, columnspan=2, padx=10)
+
+        #button_search_leads = customtkinter.CTkButton(master=button_frame, text='Search Leads', command=self.controller.main_window_search_leads_button, width=120, height=32, border_width=0, corner_radius=8)
+        #button_search_leads.grid(row=1, column=1, padx=10)
+
+        #button_view_searched_lead = customtkinter.CTkButton(master=button_frame, text='View Lead', command=self.controller.main_window_view_searched_lead_button, width=120, height=32, border_width=0, corner_radius=8)
+        #button_view_searched_lead.grid(row=1, column=2, padx=10)

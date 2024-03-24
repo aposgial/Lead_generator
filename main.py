@@ -5,7 +5,7 @@ from controller import Controller
 def main():
     App = Controller()
     
-    App.search()
+    #App.search()
     App.run()
 
 if __name__ == '__main__':
